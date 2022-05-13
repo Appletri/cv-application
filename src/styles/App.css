@@ -31,13 +31,14 @@
 
 .name {
   font-family: 'Raleway', sans-serif;
-  font-size: 35px;
+  font-size: 72px;
   text-transform: uppercase;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   height: 150px;
+  border: none;
 }
 
 .full-name {
@@ -46,9 +47,47 @@
   align-items: center;
   margin: 0px;
   padding: 0px;
+  gap: 10px;
 }
 
-.name p {
+.textInput {
+  font-family: inherit;
+  font-size: inherit;
+  display: flex;
+  color: rgb(241, 50, 50) !important;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+  padding: 0px;
+  height: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  text-align: center;
+  outline: none;
+}
+
+.work-exp .textInput{
+  text-align: start;
+}
+
+.textArea {
+  font-family: inherit;
+  font-size: inherit;
+  color: rgb(241, 50, 50) !important;
+  margin: 0px;
+  padding: 0px;
+  height: fit-content;
+  width: 380px;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  outline: none;
+}
+
+.title {
   font-family: 'Bebas Neue', cursive;
   letter-spacing: 2px;
   font-size: 15px;
@@ -72,7 +111,7 @@
   font-size: 12px;
 }
 
-.contact-info p {
+.contact-info div {
   margin: 2px;
   display: flex;
   justify-content: center;
@@ -85,10 +124,24 @@
   margin-right: 3px;
 }
 
-.education {
+.education, .skills {
   width: 2in;
   padding-left: .5in;
   padding-right: .5in;
+}
+
+.skills {
+  margin-top: 60px;
+}
+
+.skills ul {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+.skills .textInput {
+  text-align: left;
 }
 
 .work-exp {
@@ -96,4 +149,45 @@
   padding-right: .5in;
   padding-left: .5in;
   height: 9in;
+}
+
+.job {
+  margin-bottom: 30px;
+}
+
+.company-time {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.company-time p{
+  margin: 0 10px 0 0;
+}
+
+.time {
+  display: flex;
+}
+
+.time .textInput {
+  text-align: end;
+}
+
+.dash {
+  margin-left: .5ch;
+  margin-right: .5ch;
+}
+
+.position-title {
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.work-exp .wrapper, .skills .wrapper{
+  margin-bottom: 5px;
 }

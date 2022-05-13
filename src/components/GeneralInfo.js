@@ -1,25 +1,43 @@
 import mail from '../assets/mail.svg';
 import phone from '../assets/phone.svg';
 import linkedin from '../assets/linkedin.svg';
+import {EditWrapper} from './Wrapper';
 
-function GeneralInfo(props) {
 
+function GeneralInfo (props) {
   return (
     <div className="general-info">
       <div className="name">
         <div className="full-name">
-          <h1 onClick={() => console.log('edit')}>{props.obj.firstName}</h1>
-          <h1 onClick={() => console.log('edit')}>{props.obj.lastName}</h1>
+          <EditWrapper obj={props.obj} change={props.change} field='firstName' chLength={1}
+            infoEdit={props.obj.firstName}/>
+          <EditWrapper obj={props.obj} change={props.change} field='lastName' chLength={1}
+            infoEdit={props.obj.lastName}/>
         </div>
-        <p>{props.obj.title}</p>
+        <div className='title'>
+        <EditWrapper obj={props.obj} change={props.change} field='title' chLength={10}
+            infoEdit={props.obj.title}/>
+        </div>
       </div>
       <div className="contact-info">
-        <p><img src={mail} alt='mail'/>{props.obj.email}</p>
-        <p><img src={phone} alt='phone'/>{props.obj.phoneNumber}</p>
-        <p><img src={linkedin} alt='linkedin logo'/>{props.obj.linkedin}</p>
+        <div className='wrapper'>
+          <img src={phone} alt='phone'/>
+          <EditWrapper obj={props.obj} change={props.change} field='phoneNumber' chLength={6}
+            infoEdit={props.obj.phoneNumber}/>
+        </div>
+        <div className='wrapper'>
+          <img src={mail} alt='mail'/>
+          <EditWrapper obj={props.obj} change={props.change} field='email' chLength={10}
+            infoEdit={props.obj.email}/>
+        </div>
+        <div className='wrapper'>
+          <img src={linkedin} alt='linkedin logo'/>
+          <EditWrapper obj={props.obj} change={props.change} field='linkedin' chLength={10}
+            infoEdit={props.obj.linkedin}/>
+        </div>
       </div>
     </div>
-  );
+  ); 
 }
 
 export default GeneralInfo;
