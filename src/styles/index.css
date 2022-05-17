@@ -1,9 +1,9 @@
 body {
   margin: 0px;
+  background-color: blanchedalmond;
 }
 
 #root {
   display: flex;
   justify-content: center;
-  background-color: blanchedalmond;
 }

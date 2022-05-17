@@ -7,6 +7,7 @@ function WorkExp(props) {
       <h1>Work Experience</h1>
       {works.map((work, parentIndex) => {
         return <div className="job">
+          <button className='remove hidden' onDoubleClick={props.remove} id={work.id}><div className='remove-icon'/></button>
             <div className="company-time">
               <EditWrapper obj={work} change={props.change} field='companyName' chLength={1}
               infoEdit={work.companyName} index={parentIndex}/>
@@ -29,11 +30,11 @@ function WorkExp(props) {
                   index={detail.id} infoEdit={detail.detail} remove={props.deleteEmptyDetails}/>
                 </li>                
               })}
-            <button className='add' name={parentIndex} onClick={props.addDetail}>Add Work Responsibilities</button>
+            <button className='add hidden' name={parentIndex} onClick={props.addDetail}>Add Work Responsibilities</button>
             </ul>
           </div>
       })}
-      <button className='add' onClick={props.add}>Add Work Experience</button>
+      <button className='add hidden' onClick={props.add}>Add Work Experience</button>
     </div>
   );
 }

@@ -11,7 +11,7 @@ import {EditWrapper} from './Wrapper';
         infoEdit={skill} field = {index}/>;
       })}
       </div>
-      <button className='add' onClick={props.add}>+</button>
+      <button className='add hidden' onClick={props.add}>Add Skill</button>
     </div>
   );
 }

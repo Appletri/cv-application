@@ -6,19 +6,24 @@ import EducExp from './components/EducExp';
 import WorkExp from './components/WorkExp';
 import Skills from './components/Skills';
 import uniqid from 'uniqid';
+import arrow from './assets/Arrow-To-icon.png';
 
 class App extends Component {
   constructor() {
     super();
     this.handleChangeGI = this.handleChangeGI.bind(this);
     this.handleChangeEE = this.handleChangeEE.bind(this);
+    this.handleAddEE = this.handleAddEE.bind(this);
+    this.handleRemoveEE = this.handleRemoveEE.bind(this);
     this.handleChangeWE = this.handleChangeWE.bind(this);
     this.handleAddWE = this.handleAddWE.bind(this);
+    this.handleRemoveWE = this.handleRemoveWE.bind(this);
     this.handleChangeD = this.handleChangeD.bind(this);
     this.handleAddD = this.handleAddD.bind(this);
     this.handleChangeS = this.handleChangeS.bind(this);
     this.handleAddS = this.handleAddS.bind(this);
-    this.handleDeleteEmptyDetails = this.handleDeleteEmptyDetails.bind(this);
+    this.handleTwoFeatures = this.handleTwoFeatures.bind(this);
+    this.toggleMoreFeatures = this.toggleMoreFeatures.bind(this);
     this.state = {
       cvInfo: {
         generalInfo: {
@@ -30,12 +35,16 @@ class App extends Component {
           linkedin: 'linkedin.com/example'
         },
         
-        educExp: {
+        educExp: [
+          {
           schoolName: 'University of Utah',
           titleOfStudy: 'Film and Media Arts',
           startDate: '2011',
-          endDate: '2015'
-        },
+          endDate: '2015',
+          id: uniqid()
+          }
+        ],
+      
         
         workExp: [
         {
@@ -48,9 +57,11 @@ class App extends Component {
             {detail: 'Developed indexed database architecture using SQL procedures and triggers for 10 different applications', id: uniqid()},
             {detail: 'Worked with Core Java to develop automated solutions to include web interfaces using HTML, CSS, JavaScript and Web services', id: uniqid()},
             {detail: 'Worked with a committee of 6 members to organize fun-activities for the employees', id: uniqid()}
-          ]
+          ],
+          id: uniqid()
         }],
-        skills: ['HTML', 'CSS', 'Javascript', 'React']
+        skills: ['HTML', 'CSS', 'Javascript', 'React'],
+        editState:{ state: 'false' }
       }  
     }
   }
@@ -62,7 +73,7 @@ class App extends Component {
   }
 
   handleChangeEE(e) {
-    const info = this.state.cvInfo.educExp;
+    const info = this.state.cvInfo.educExp[e.target.id];
     info[e.target.name] = e.target.value;
     this.setState(info);
   }
@@ -84,11 +95,12 @@ class App extends Component {
     }
   }
 
-  handleDeleteEmptyDetails(e) {
-    //toggle feature taken from inputChanger
+  handleTwoFeatures(e) {
+    //hide feature taken from inputChanger
     let children = e.target.parentNode.childNodes
     children.forEach((item) => item.classList.toggle('hidden'));
   
+    //delete empty details
     const info = this.state.cvInfo.workExp;
     info.forEach(element => {
       element.details.forEach((detail) => {
@@ -123,8 +135,16 @@ class App extends Component {
       endDate: 'End Year',
       details: [
         {detail: 'Work Responsibilities', id: uniqid()}
-      ]
+      ],
+      id: uniqid()
     });
+    this.setState(info);
+  }
+
+  handleRemoveWE(e) {
+    const info = this.state.cvInfo.workExp;
+    const index = info.map(x => x.id).indexOf(e.target.id);
+    info.splice(index, 1);
     this.setState(info);
   }
 
@@ -137,24 +157,74 @@ class App extends Component {
     this.setState(info);
   }
 
+  handleAddEE(e) {
+    const info = this.state.cvInfo.educExp;
+    info.push({
+      schoolName: 'School Name',
+      titleOfStudy: 'Field of Study or Major',
+      startDate: 'start',
+      endDate: 'end',
+      id: uniqid()
+    });
+    this.setState(info);
+  }
+
+  handleRemoveEE(e) {
+    const info = this.state.cvInfo.educExp;
+    const index = info.map(x => x.id).indexOf(e.target.id);
+    info.splice(index, 1);
+    this.setState(info);
+  }
+
+  toggleMoreFeatures(e) {
+    let editState = this.state.cvInfo.editState;
+    if (editState.state === 'false') {
+      editState.state = 'true';
+    } else {
+      editState.state = 'false';
+    }
+    
+    this.setState(editState);
+  }
+  
   render() {
     const { generalInfo } = this.state.cvInfo;
     const { educExp } = this.state.cvInfo;
     const { workExp } = this.state.cvInfo;
     const { skills } = this.state.cvInfo;
+    const addButts = document.querySelectorAll('.add');
+    const removeButts = document.querySelectorAll('.remove');
+    const editState = this.state.cvInfo.editState;
 
+    if (editState.state === 'false') {
+      addButts.forEach((button) => button.className = 'add hidden');
+      removeButts.forEach((button) => button.className = 'remove hidden');
+    } else {
+      addButts.forEach((button) => button.className = 'add')
+      removeButts.forEach((button) => button.className = 'remove')
+    }
     return (
-      <div className='cv'>
-        <GeneralInfo obj={generalInfo} change = {this.handleChangeGI}/>
-        <div className='info'>
-          <div className='left-side'>
-            <EducExp obj={educExp} change = {this.handleChangeEE}/>
-            <Skills obj={skills} add={this.handleAddS} change = {this.handleChangeS}/>
+      <div className='app'>
+        <div className='edit-wrapper'>
+        <button className='edit-button' onClick={this.toggleMoreFeatures}>
+          <div className='square-icon' />
+        </button>
+          <div className='tutorial'>
+            <img className='arrow' src={arrow} alt='arrow'></img> Click this button to reveal more edit features
           </div>
-          <hr></hr>
-          <WorkExp obj={workExp} add={this.handleAddWE} addDetail={this.handleAddD} 
-          change = {this.handleChangeWE} changeDetail = {this.handleChangeD} 
-          deleteEmptyDetails = {this.handleDeleteEmptyDetails}/>
+        </div>
+        <div className='cv'>
+          <GeneralInfo obj={generalInfo} change = {this.handleChangeGI}/>
+          <div className='info'>
+            <div className='left-side'>
+              <EducExp obj={educExp} add={this.handleAddEE} change = {this.handleChangeEE} remove = {this.handleRemoveEE}/>
+              <Skills obj={skills} add={this.handleAddS} change = {this.handleChangeS}/>
+            </div>
+            <hr></hr>
+            <WorkExp obj={workExp} add={this.handleAddWE} addDetail={this.handleAddD} 
+            change = {this.handleChangeWE} changeDetail = {this.handleChangeD} 
+            deleteEmptyDetails = {this.handleTwoFeatures} remove = {this.handleRemoveWE}/>
+          </div>
         </div>
       </div>
     );
