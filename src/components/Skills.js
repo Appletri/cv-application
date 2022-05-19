@@ -1,4 +1,4 @@
-import {EditWrapper} from './Wrapper';
+import {EditWrapperInput} from './Wrapper';
 
   function Skills(props) {
     
@@ -7,8 +7,10 @@ import {EditWrapper} from './Wrapper';
       <h1>Skills</h1>
       <div>
       {props.obj.map((skill, index) => {
-        return <EditWrapper obj={props.obj} change={props.change} chLength={10}
-        infoEdit={skill} field = {index}/>;
+        return <div key={index}>
+          <EditWrapperInput obj={props.obj} change={props.change} chLength={10}
+          infoEdit={skill} field = {index}/>
+        </div>
       })}
       </div>
       <button className='add hidden' onClick={props.add}>Add Skill</button>

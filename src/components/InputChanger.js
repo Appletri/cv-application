@@ -5,6 +5,7 @@ function InputChanger (props) {
   //     children.forEach((item) => item.classList.toggle('hidden'))
   //   }
   // }
+  
   const handleChangeDoneByFocusOut = (e) => {
     let children = e.target.parentNode.childNodes
     children.forEach((item) => item.classList.toggle('hidden'))
@@ -12,7 +13,7 @@ function InputChanger (props) {
   return(
     <input type='text' id={props.index} className='textInput hidden' 
     onChange={props.change} name={props.field} defaultValue={props.obj}
-    style={{width: props.obj.length + props.chLength + 'ch'}}
+    style={{width: props.obj.length + props.chLength + 'ch'}} parent={props.parent}
     onBlur={handleChangeDoneByFocusOut}/>
   );
 }

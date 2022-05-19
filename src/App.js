@@ -13,16 +13,16 @@ class App extends Component {
     super();
     this.handleChangeGI = this.handleChangeGI.bind(this);
     this.handleChangeEE = this.handleChangeEE.bind(this);
-    this.handleAddEE = this.handleAddEE.bind(this);
-    this.handleRemoveEE = this.handleRemoveEE.bind(this);
     this.handleChangeWE = this.handleChangeWE.bind(this);
-    this.handleAddWE = this.handleAddWE.bind(this);
-    this.handleRemoveWE = this.handleRemoveWE.bind(this);
     this.handleChangeD = this.handleChangeD.bind(this);
-    this.handleAddD = this.handleAddD.bind(this);
     this.handleChangeS = this.handleChangeS.bind(this);
+    this.handleAddEE = this.handleAddEE.bind(this);
+    this.handleAddWE = this.handleAddWE.bind(this);
+    this.handleAddD = this.handleAddD.bind(this);
     this.handleAddS = this.handleAddS.bind(this);
-    this.handleTwoFeatures = this.handleTwoFeatures.bind(this);
+    this.handleRemoveEE = this.handleRemoveEE.bind(this);
+    this.handleRemoveWE = this.handleRemoveWE.bind(this);
+    this.removeEmptyDetail = this.removeEmptyDetail.bind(this);
     this.toggleMoreFeatures = this.toggleMoreFeatures.bind(this);
     this.state = {
       cvInfo: {
@@ -33,34 +33,10 @@ class App extends Component {
           email: 'example@email.com',
           phoneNumber: '123-456-7890',
           linkedin: 'linkedin.com/example'
-        },
-        
-        educExp: [
-          {
-          schoolName: 'University of Utah',
-          titleOfStudy: 'Film and Media Arts',
-          startDate: '2011',
-          endDate: '2015',
-          id: uniqid()
-          }
-        ],
-      
-        
-        workExp: [
-        {
-          companyName: 'Made up Company',
-          positionTitle: 'Full Stack Web Developer',
-          startDate: '2000',
-          endDate: '2021',
-          details: [
-            {detail: 'Hired, trained and leading an Agile team of 7 full-stack developers', id: uniqid()},
-            {detail: 'Developed indexed database architecture using SQL procedures and triggers for 10 different applications', id: uniqid()},
-            {detail: 'Worked with Core Java to develop automated solutions to include web interfaces using HTML, CSS, JavaScript and Web services', id: uniqid()},
-            {detail: 'Worked with a committee of 6 members to organize fun-activities for the employees', id: uniqid()}
-          ],
-          id: uniqid()
-        }],
-        skills: ['HTML', 'CSS', 'Javascript', 'React'],
+        },      
+        educExp: [],
+        workExp: [],
+        skills: [],
         editState:{ state: 'false' }
       }  
     }
@@ -94,8 +70,71 @@ class App extends Component {
       return arr.find( ({ id }) => id === e.target.id )
     }
   }
+  
+  handleChangeS(e) {
+    const info = this.state.cvInfo.skills;
+    info[e.target.name] = e.target.value;
+    this.setState(info);
+  }
 
-  handleTwoFeatures(e) {
+  
+  handleAddS(e) {
+    const info = this.state.cvInfo.skills;
+    info.push('new Skill');
+    this.setState(info);
+  }
+  
+  handleAddWE(e) {
+    const info = this.state.cvInfo.workExp;
+    info.push({ 
+      companyName: 'Company Name',
+      positionTitle: 'Name of Position',
+      startDate: 'Start Year',
+      endDate: 'End Year',
+      details: [
+        {detail: 'Work Responsibilities', id: uniqid()}
+      ],
+      id: uniqid()
+    });
+    this.setState(info);
+  }
+  
+  handleAddD(e) {
+    const info = this.state.cvInfo.workExp[e.target.name].details;
+    info.push({
+      detail: 'Work Responsibilities',
+      id: uniqid()
+    });
+    this.setState(info);
+  }
+  
+  handleAddEE(e) {
+    const info = this.state.cvInfo.educExp;
+    info.push({
+      schoolName: 'School Name',
+      titleOfStudy: 'Field of Study or Major',
+      startDate: 'start',
+      endDate: 'end',
+      id: uniqid()
+    });
+    this.setState(info);
+  }
+  
+  handleRemoveWE(e) {
+    const info = this.state.cvInfo.workExp;
+    const index = info.map(x => x.id).indexOf(e.target.id);
+    info.splice(index, 1);
+    this.setState(info);
+  }
+  
+  handleRemoveEE(e) {
+    const info = this.state.cvInfo.educExp;
+    const index = info.map(x => x.id).indexOf(e.target.id);
+    info.splice(index, 1);
+    this.setState(info);
+  }
+  
+  removeEmptyDetail(e) {
     //hide feature taken from inputChanger
     let children = e.target.parentNode.childNodes
     children.forEach((item) => item.classList.toggle('hidden'));
@@ -112,70 +151,7 @@ class App extends Component {
     })
     this.setState(info);
   }
-
-
-  handleChangeS(e) {
-    const info = this.state.cvInfo.skills;
-    info[e.target.name] = e.target.value;
-    this.setState(info);
-  }
-
-  handleAddS(e) {
-    const info = this.state.cvInfo.skills;
-    info.push('new Skill');
-    this.setState(info);
-  }
-
-  handleAddWE(e) {
-    const info = this.state.cvInfo.workExp;
-    info.push({ 
-      companyName: 'Company Name',
-      positionTitle: 'Name of Position',
-      startDate: 'Start Year',
-      endDate: 'End Year',
-      details: [
-        {detail: 'Work Responsibilities', id: uniqid()}
-      ],
-      id: uniqid()
-    });
-    this.setState(info);
-  }
-
-  handleRemoveWE(e) {
-    const info = this.state.cvInfo.workExp;
-    const index = info.map(x => x.id).indexOf(e.target.id);
-    info.splice(index, 1);
-    this.setState(info);
-  }
-
-  handleAddD(e) {
-    const info = this.state.cvInfo.workExp[e.target.name].details;
-    info.push({
-      detail: 'Work Responsibilities',
-      id: uniqid()
-    });
-    this.setState(info);
-  }
-
-  handleAddEE(e) {
-    const info = this.state.cvInfo.educExp;
-    info.push({
-      schoolName: 'School Name',
-      titleOfStudy: 'Field of Study or Major',
-      startDate: 'start',
-      endDate: 'end',
-      id: uniqid()
-    });
-    this.setState(info);
-  }
-
-  handleRemoveEE(e) {
-    const info = this.state.cvInfo.educExp;
-    const index = info.map(x => x.id).indexOf(e.target.id);
-    info.splice(index, 1);
-    this.setState(info);
-  }
-
+  
   toggleMoreFeatures(e) {
     let editState = this.state.cvInfo.editState;
     if (editState.state === 'false') {
@@ -206,9 +182,9 @@ class App extends Component {
     return (
       <div className='app'>
         <div className='edit-wrapper'>
-        <button className='edit-button' onClick={this.toggleMoreFeatures}>
-          <div className='square-icon' />
-        </button>
+          <button className='edit-button' onClick={this.toggleMoreFeatures}>
+            <div className='square-icon' />
+          </button>
           <div className='tutorial'>
             <img className='arrow' src={arrow} alt='arrow'></img> Click this button to reveal more edit features
           </div>
@@ -223,7 +199,7 @@ class App extends Component {
             <hr></hr>
             <WorkExp obj={workExp} add={this.handleAddWE} addDetail={this.handleAddD} 
             change = {this.handleChangeWE} changeDetail = {this.handleChangeD} 
-            deleteEmptyDetails = {this.handleTwoFeatures} remove = {this.handleRemoveWE}/>
+            deleteEmptyDetails = {this.removeEmptyDetail} remove = {this.handleRemoveWE}/>
           </div>
         </div>
       </div>
