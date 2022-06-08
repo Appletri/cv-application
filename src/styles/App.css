@@ -278,3 +278,17 @@
 .remove:hover {
   transform: translateX(-35px) scale(1.1);
 }
+
+@media print{
+  .edit-wrapper, button, .remove {
+    display: none;
+  }
+
+  .cv {
+    box-shadow: none;
+    margin: 0px;
+    left: 0px;
+    top: 0px;
+    position:absolute;
+  }
+}
