@@ -1,6 +1,7 @@
 import {InputChanger, InputChangerTextArea} from './InputChanger';
 
 function EditWrapperInput(props) {
+
   const edit = (e) => {
     let children = e.target.parentNode.childNodes
     children.forEach((item) => item.classList.toggle('hidden'))

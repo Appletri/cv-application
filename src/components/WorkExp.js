@@ -1,40 +1,59 @@
-import {EditWrapperInput, EditWrapperTextArea} from './Wrapper';
+import {EditWrapperInput} from './Wrapper';
+import uniqid from 'uniqid';
+import { useState } from 'react';
+import Details from './Details';
 
-function WorkExp(props) {
-  const works = props.obj;
+function WorkExp() {
+  const [data, setData] = useState([]);
+
+  const addData = () => {
+    setData([...data, {
+      companyName: 'Company Name',
+      positionTitle: 'Name of Position',
+      startDate: 'Start Year',
+      endDate: 'End Year',
+      id: uniqid()
+    }])
+  }
+
+  const removeData = (e) => {
+    let newData = [...data];
+    const index = newData.map(x => x.id).indexOf(e.target.id);
+    newData.splice(index, 1);
+    setData(newData);
+  }
+  
+  const changeData = (e) => {
+    let newData = [...data];
+    newData[e.target.id][e.target.name] = e.target.value;
+    setData(newData);
+  }
+
   return (
     <div className="work-exp">
       <h1>Work Experience</h1>
-      {works.map((work, parentIndex) => {
+      {data.map((work, parentIndex) => {
         return <div className="job" key={work.id}>
-          <button className='remove' onClick={props.remove} id={work.id}><div className='remove-icon'/></button>
+          <button className='remove' onClick={removeData} id={work.id}><div className='remove-icon'/></button>
             <div className="company-time">
-              <EditWrapperInput change={props.change} field='companyName' chLength={1}
+              <EditWrapperInput change={changeData} field='companyName' chLength={1}
               infoEdit={work.companyName} index={parentIndex}/>
               <div className='time'> 
-                <EditWrapperInput change={props.change} field='startDate' chLength={1}
+                <EditWrapperInput change={changeData} field='startDate' chLength={1}
                 infoEdit={work.startDate} index={parentIndex}/>
                 <div className='dash'>-</div>
-                <EditWrapperInput change={props.change} field='endDate' chLength={1}
+                <EditWrapperInput change={changeData} field='endDate' chLength={1}
                 infoEdit={work.endDate} index={parentIndex}/>
               </div>
             </div>
             <div className='position-title'>
-              <EditWrapperInput change={props.change} field='positionTitle' chLength={1}
+              <EditWrapperInput change={changeData} field='positionTitle' chLength={1}
               infoEdit={work.positionTitle} index={parentIndex}/>
             </div>
-            <ul className="details">
-            {work.details.map((detail) => {
-                return <li key={detail.id}>
-                  <EditWrapperTextArea change={props.changeDetail} field={parentIndex} 
-                  index={detail.id} infoEdit={detail.detail} remove={props.deleteEmptyDetails}/>
-                </li>                
-              })}
-            <button className='add' name={parentIndex} onClick={props.addDetail}>Add Work Responsibilities</button>
-            </ul>
+            <Details />
           </div>
       })}
-      <button className='add hidden' onClick={props.add}>Add Work Experience</button>
+      <button className='add hidden' onClick={addData}>Add Work Experience</button>
     </div>
   );
 }
