@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# CV Application
+![Incoming gif]()
+## Links
+- [Try CV Application here!](https://appletri.github.io/cv-application/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [Link to the Assignment](https://www.theodinproject.com/lessons/node-path-javascript-cv-application)
 
-## Available Scripts
+## About
+### ReactJS
+<hr>
+This is the first project for ReactJS. I learned how to make basic components, utilizing state and props. Later down the curriculum, I was tasked with swapping out the class components with hooks.
 
-In the project directory, you can run:
+### Design
+I noticed that the design of having a bunch of input fields to affect the look of a resume could be overwhelming. My main goal was to make this simplified with an intuitive way to edit the resume. I designed a wrapper div that would contain the visual value div and an input field for editting. Everytime the user would click on the visual value div, both divs inside the wrapper would toggle hidden. This would create an input field wherever there is something that could be editted. After placing a new value inside the input field, the user can click out of the field and the state would be updated with the new value, thus changing the visual value div. Having these changes allows the user to focus on the resume and how it will in the end. I kept the cv application to be 8.5in by 11in for printing purposes.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Code
+<hr>
+#### The Bread and Butter
+Since everything is pretty much editable, the core helper function that would be used in all my sections is the Wrapper.js and the InputChanger.js. They both hold two functions, one for text input and the other for text area (for the work responsibilities). They work together to toggle the hidden fields respectively and pass props down the line to display and edit information. Since I went for a look that doesnt show input fields borders, I had to specify the character length of the input field to avoid overflow issues of text.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Details.js
+The Details are the work responsibilites for the work experiences. Originally when I had constructors, the Details was an object inside of the work experience object and both were updated in the same file. With the new learned hooks, I was able to seperate them and call upon Details for each work experience I created. The details would work independently due to their isolated states.
 
-### `npm test`
+Another feature that I added to Details was to remove the detail from the array when the array does not have any letters. This is a great way to do this fuction since it removes the excessive amounts of remove buttons and is intuitive for the user to remove data by deleting all the data.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### ToggleEditFeatures
+This is a piece of code in the App(), I use this button as a way to hide all the add/remove buttons for the resume. I created some text to guide the user to the button so they could learn how to add and remove items from their application. If the user was working with a smaller window, the button would stay with the user with some sticky css.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Print/Save
+<hr>
+The user can print or save the resume as a PDF by using the default printing for their web browsers. Some settings that the user may want to get the print to be as shown is to have: 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Scale:fit to page width 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Print Backgrounds: on
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
