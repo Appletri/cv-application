@@ -1,5 +1,5 @@
 # CV Application
-![Incoming gif]()
+![](https://github.com/Appletri/Appletri/blob/main/assets/cv-application.gif)
 ## Links
 - [Try CV Application here!](https://appletri.github.io/cv-application/)
 
@@ -36,4 +36,5 @@ Scale:fit to page width
 
 Print Backgrounds: on
 
+![](https://github.com/Appletri/Appletri/blob/main/assets/cv-resume-example.JPG)
 
